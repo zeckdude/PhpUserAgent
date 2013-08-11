@@ -122,6 +122,51 @@ function parse_user_agent( $u_agent = null ) {
 			}
 		}
 		
+		if($data['platform'] == 'Macintosh') {
+			$mac_version_full = str_replace('_', '.', $data['platform_version']);	
+			$num_periods = substr_count($mac_version_full, '.');
+			
+			if($num_periods != 0 && $num_periods != 1) {
+				$period_pos = strrpos($mac_version_full,".");
+				$mac_version_short = substr($mac_version_full, 0, $period_pos);
+			} else {
+				$mac_version_short = $mac_version_full;
+			}
+			
+			switch($mac_version_short) {
+				case '10.0':
+					$data['platform_version'] = 'OS X Cheetah';
+					break;
+				case '10.1':
+					$data['platform_version'] = 'OS X Puma';
+					break;
+				case '10.2':
+					$data['platform_version'] = 'OS X Jaguar';
+					break;
+				case '10.3':
+					$data['platform_version'] = 'OS X Panther';
+					break;
+				case '10.4':
+					$data['platform_version'] = 'OS X Tiger';
+					break;
+				case '10.5':
+					$data['platform_version'] = 'OS X Leopard';
+					break;
+				case '10.6':
+					$data['platform_version'] = 'OS X Snow Leopard';
+					break;
+				case '10.7':
+					$data['platform_version'] = 'OS X Lion';
+					break;
+				case '10.8':
+					$data['platform_version'] = 'OS X Mountain Lion';
+					break;
+				case '10.9':
+					$data['platform_version'] = 'OS X Mavericks';
+					break;
+			}
+		}
+		
 		$data['platform_version'] = str_replace('_', '.', $data['platform_version']);
 
 	} else {
